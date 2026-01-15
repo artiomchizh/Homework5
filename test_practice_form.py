@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pytest
 
 from selene import have
@@ -49,8 +51,7 @@ def test_automation_form(browser):
     browser.element('[for="hobbies-checkbox-1"]').click()
 
     # 8. Загружаем файл
-    browser.element('#uploadPicture').set_value('/Users/artiom/Downloads/_.jpeg')
-
+    browser.element('#uploadPicture').set_value(Path("image/_.jpeg").resolve())
     # 9. Вводим текущий адрес
     browser.element('#currentAddress').type('г. Москва, ул. 9-мая, д. 1')
 
@@ -67,4 +68,17 @@ def test_automation_form(browser):
 
     # 13. Проверяем появление модального окна с подтверждением
     browser.element('.modal-content').should(have.text('Thanks for submitting the form'))
+
+    browser.element('.table-responsive').should(have.text('Олег'))
+    browser.element('.table-responsive').should(have.text('Олегович'))
+    browser.element('.table-responsive').should(have.text('oleg.olegovich@example.com'))
+    browser.element('.table-responsive').should(have.text('Male'))
+    browser.element('.table-responsive').should(have.text('1234567890'))
+    browser.element('.table-responsive').should(have.text('10 July,2000'))  # Формат даты как на сайте
+    browser.element('.table-responsive').should(have.text('Maths'))
+    browser.element('.table-responsive').should(have.text('Sports'))
+    browser.element('.table-responsive').should(have.text('г. Москва, ул. 9-мая, д. 1'))
+    browser.element('.table-responsive').should(have.text('NCR'))
+    browser.element('.table-responsive').should(have.text('Delhi'))
+
 

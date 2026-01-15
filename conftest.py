@@ -8,4 +8,3 @@ def browser():
     browser = Browser(Config(driver=driver, base_url='https://demoqa.com'))
     yield browser
     browser.quit()
-
